@@ -76,15 +76,6 @@ Las rutas viven en el hash, así que no hacen falta reescrituras en el servidor 
 | `#/interno` | Cobertura por dirección |
 | `#/interno/<direccion>` | Lo que falta en una dirección |
 
-## Publicar en Vercel
-
-1. Sube este repositorio a GitHub, **en privado**: el catálogo incluye nombres y correos de funcionarias y funcionarios.
-2. En [vercel.com](https://vercel.com), **Add New → Project**, e importa el repositorio.
-3. Vercel detecta que no hay framework. Deja **Framework Preset** en *Other* y **Build Command** vacío; el `vercel.json` ya trae el resto.
-4. Deploy. Cada push a `main` vuelve a desplegar.
-
-El sitio queda con `noindex` en la etiqueta y en la cabecera HTTP. Quitar ambos es una decisión que corresponde tomar cuando el alojamiento institucional esté resuelto y las direcciones hayan validado sus datos.
-
 ## Marca
 
 Color y tipografía provienen de *Gráfica institucional 2026* de la Escuela de Salud Pública. El naranja `#FF9D18` es el acento; el azul `#092F9D`, la estructura. La tipografía es Calibri, con **Carlito** como sustituto métrico de código abierto para equipos que no la tengan.
