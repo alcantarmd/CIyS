@@ -1,19 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-construir_pagina_unica.py
-
-Arma un HTML autocontenido a partir del sitio: mete el CSS, el JavaScript,
-los datos y los escudos dentro de un solo archivo.
-
-Para qué sirve: mandar el prototipo por correo, abrirlo en un computador sin
-conexión, o llevarlo a una reunión sin depender de que el despliegue esté
-arriba. El sitio de verdad es el de la carpeta; esto es una foto suya.
-
-Uso:
-    python3 scripts/construir_pagina_unica.py
-    python3 scripts/construir_pagina_unica.py --salida dist/central.html
-"""
 
 import argparse
 import base64
