@@ -122,8 +122,6 @@ button{ font:inherit; color:inherit; background:none; border:0; cursor:pointer }
 :focus-visible{
   outline:3px solid var(--foco);
   outline-offset:2px;
-  box-shadow:0 0 0 6px var(--foco-halo);
-  border-radius:var(--r-sm);
 }
 h1,h2,h3{ margin:0; text-wrap:balance; color:var(--gris-titular) }
 p{ margin:0 }
@@ -236,7 +234,8 @@ img{ max-width:100% }
   padding:.1rem .2rem .1rem .95rem; box-shadow:var(--sombra);
   max-width:38rem; margin-top:1.5rem;
 }
-.buscador:focus-within{ border-color:var(--azul) }
+.buscador:focus-within{ border-color:var(--azul); outline:3px solid var(--foco); outline-offset:2px }
+.buscador input:focus-visible{ outline:none }
 .buscador svg{ flex:none; color:var(--ink-2) }
 .buscador input{ flex:1; border:0; background:none; font:inherit; color:var(--ink); padding:.8rem 0; min-width:0 }
 .buscador input:focus{ outline:none }
