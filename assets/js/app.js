@@ -413,9 +413,20 @@ function pintarPanel(clave) {
 /* ---------------- navegación ---------------- */
 const VISTAS = ["vista-portada", "vista-estamento", "vista-ficha", "vista-interno"];
 
+let primerRender = true;
+
 function mostrar(id) {
   VISTAS.forEach(v => { $(v).hidden = (v !== id); });
   window.scrollTo({ top: 0, behavior: "instant" });
+  // En una página de una sola vista, cambiar de sección no mueve el foco por
+  // sí solo: quien usa lector de pantalla se queda oyendo la vista anterior.
+  // Por eso se lleva el foco al encabezado de la vista recién mostrada.
+  if (primerRender) { primerRender = false; return; }
+  const enc = $(id).querySelector("h1, h2");
+  if (enc) {
+    if (!enc.hasAttribute("tabindex")) enc.setAttribute("tabindex", "-1");
+    enc.focus({ preventScroll: true });
+  }
 }
 
 function irA(hash) { window.location.hash = hash; }
