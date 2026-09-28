@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" data-tema="auto" data-texto="normal" data-contraste="normal" data-subrayado="no">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,14 +7,24 @@
 <meta name="description" content="Catálogo de servicios de la Facultad de Medicina de la Universidad de Chile, organizado por lo que necesita resolver cada persona.">
 <!-- Mientras el alojamiento institucional no esté definido, el sitio no se indexa. -->
 <meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#F8F8F8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12171A" media="(prefers-color-scheme: dark)">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="assets/css/estilos.css">
 <script>
-  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+/* Aplica las preferencias guardadas antes del primer pintado, para que
+   nadie vea el tema claro parpadear antes de pasar al oscuro. */
+(function(){try{
+  var g=JSON.parse(localStorage.getItem("cis-preferencias")||"{}"),r=document.documentElement,
+      v={tema:["auto","claro","oscuro"],texto:["normal","grande","mayor","maximo"],
+         contraste:["normal","alto"],subrayado:["no","si"]};
+  Object.keys(v).forEach(function(k){ if(v[k].indexOf(g[k])!==-1) r.setAttribute("data-"+k,g[k]); });
+  if((r.getAttribute("data-tema")||"auto")==="auto" && window.matchMedia &&
+     window.matchMedia("(prefers-color-scheme: dark)").matches) r.classList.add("oscuro-sistema");
+}catch(e){}})();
 </script>
-<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 
@@ -30,8 +40,62 @@
       <b>Central de Iniciativas y Servicios</b>
       Facultad de Medicina, Universidad de Chile
     </p>
+    <div class="acciones">
+      <button class="btn-acc" id="btn-accesibilidad" type="button" aria-expanded="false" aria-controls="panel-accesibilidad">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/><circle cx="12" cy="7.5" r="1.4" fill="currentColor" stroke="none"/>
+          <path d="M7 10.5h10M12 10.5V17M12 17l-2.2 2.6M12 17l2.2 2.6"/>
+        </svg>
+        Accesibilidad
+      </button>
+    </div>
+  </div>
+
+  <div class="panel-acc" id="panel-accesibilidad" role="group" aria-labelledby="titulo-accesibilidad" hidden>
+    <h2 id="titulo-accesibilidad">Preferencias de visualización</h2>
+
+    <div class="grupo-acc">
+      <p class="rot" id="rot-texto">Tamaño del texto</p>
+      <div class="opciones" role="group" aria-labelledby="rot-texto">
+        <button type="button" class="aa1" data-ajuste="texto" data-valor="normal" data-etiqueta="Tamaño normal" aria-pressed="true"><span aria-hidden="true">A</span><span class="visualmente-oculto">Normal</span></button>
+        <button type="button" class="aa2" data-ajuste="texto" data-valor="grande" data-etiqueta="Tamaño grande" aria-pressed="false"><span aria-hidden="true">A</span><span class="visualmente-oculto">Grande</span></button>
+        <button type="button" class="aa3" data-ajuste="texto" data-valor="mayor" data-etiqueta="Tamaño mayor" aria-pressed="false"><span aria-hidden="true">A</span><span class="visualmente-oculto">Mayor</span></button>
+        <button type="button" class="aa4" data-ajuste="texto" data-valor="maximo" data-etiqueta="Tamaño máximo" aria-pressed="false"><span aria-hidden="true">A</span><span class="visualmente-oculto">Máximo</span></button>
+      </div>
+    </div>
+
+    <div class="grupo-acc">
+      <p class="rot" id="rot-tema">Tema</p>
+      <div class="opciones" role="group" aria-labelledby="rot-tema">
+        <button type="button" data-ajuste="tema" data-valor="auto" data-etiqueta="Tema automático" aria-pressed="true">Automático</button>
+        <button type="button" data-ajuste="tema" data-valor="claro" data-etiqueta="Tema claro" aria-pressed="false">Claro</button>
+        <button type="button" data-ajuste="tema" data-valor="oscuro" data-etiqueta="Tema oscuro" aria-pressed="false">Oscuro</button>
+      </div>
+    </div>
+
+    <div class="grupo-acc">
+      <p class="rot" id="rot-contraste">Contraste</p>
+      <div class="opciones" role="group" aria-labelledby="rot-contraste">
+        <button type="button" data-ajuste="contraste" data-valor="normal" data-etiqueta="Contraste normal" aria-pressed="true">Normal</button>
+        <button type="button" data-ajuste="contraste" data-valor="alto" data-etiqueta="Alto contraste" aria-pressed="false">Alto contraste</button>
+      </div>
+    </div>
+
+    <div class="grupo-acc">
+      <p class="rot" id="rot-subrayado">Enlaces</p>
+      <div class="opciones" role="group" aria-labelledby="rot-subrayado">
+        <button type="button" data-ajuste="subrayado" data-valor="no" data-etiqueta="Enlaces sin subrayar" aria-pressed="true">Sin subrayar</button>
+        <button type="button" data-ajuste="subrayado" data-valor="si" data-etiqueta="Enlaces subrayados" aria-pressed="false">Subrayados</button>
+      </div>
+    </div>
+
+    <button type="button" class="restablecer" id="restablecer-accesibilidad">Restablecer todo</button>
+
+    <p class="pie-acc">Tus preferencias se guardan solo en este navegador y no se envían a ninguna parte. El sitio también respeta el tamaño de letra y el modo oscuro que tengas configurados en tu sistema.</p>
   </div>
 </header>
+
+<p class="visualmente-oculto" id="aviso-accesibilidad" role="status" aria-live="polite"></p>
 
 <main id="contenido" class="shell">
 
@@ -39,7 +103,7 @@
   <section id="vista-portada" aria-label="Portada">
     <div class="portada">
       <div class="tick">
-        <h1>Todo lo que la Facultad puede hacer por ti, en un solo lugar</h1>
+        <h1 tabindex="-1" id="foco-portada">Todo lo que la Facultad puede hacer por ti, en un solo lugar</h1>
       </div>
       <p class="bajada">Busca por lo que necesitas resolver, o entra por tu estamento y mira solo lo que te corresponde.</p>
       <div class="buscador">
@@ -76,7 +140,7 @@
 
   <!-- ============ FICHA ============ -->
   <section id="vista-ficha" aria-label="Ficha de servicio" hidden>
-    <a class="volver" href="#/" style="margin-top:26px">
+    <a class="volver" href="#/" style="margin-top:1.6rem">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
       Volver a la portada
     </a>
@@ -94,11 +158,13 @@
   <div class="in">
     <p class="linea tick"><b>Facultad de Medicina, Universidad de Chile</b><br>Av. Independencia 1027, Independencia, Santiago de Chile</p>
     <p class="nota"><b>Versión de trabajo.</b> El catálogo está en construcción: la información proviene de fuentes institucionales y todavía no ha sido validada por cada unidad responsable. Si un dato está incorrecto o falta un servicio, escribe a la unidad que lo presta.</p>
+    <p class="nota"><b>Accesibilidad.</b> Este sitio se construyó siguiendo las pautas WCAG en nivel AA: contraste verificado, navegación completa por teclado, estructura semántica y textos alternativos. Si encuentras una barrera de acceso, avísanos para corregirla.</p>
     <a class="enlace" href="#/interno">Vista interna: qué falta por dirección</a>
   </div>
 </footer>
 
 <script src="data/servicios.js"></script>
+<script src="assets/js/accesibilidad.js"></script>
 <script src="assets/js/app.js"></script>
 </body>
 </html>
