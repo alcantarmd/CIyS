@@ -2,21 +2,6 @@
    Central de Iniciativas y Servicios
    Facultad de Medicina, Universidad de Chile
 
-   Marca tomada de "Gráfica institucional 2026" de la Escuela de
-   Salud Pública. Colores muestreados del propio manual.
-
-   ACCESIBILIDAD
-   El cumplimiento vive en el HTML y en estos tokens, no en el panel
-   de preferencias. El panel agrega comodidad; la norma se cumple
-   igual si nadie lo abre.
-     - Tamaños en rem, y el tamaño base en porcentaje, para respetar
-       la preferencia de letra del navegador y permitir 200% sin
-       romper el diseño (WCAG 1.4.4).
-     - Texto AA (4.5:1) y bordes de controles 3:1 (WCAG 1.4.11) en
-       los cuatro modos: claro, oscuro, y ambos en alto contraste.
-     - Foco siempre visible, con doble anillo para que se vea sobre
-       cualquier fondo (WCAG 2.4.7).
-
    COMBINACIONES DE TEMA
      :root                          claro
      [data-tema="oscuro"]           oscuro
