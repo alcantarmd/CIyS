@@ -54,15 +54,20 @@ Eso produce un `servicios.json`. Para convertirlo en el archivo que carga el sit
 python3 - <<'PY'
 import json, pathlib
 d = json.load(open('migracion/servicios.json'))
-campos = ('id','sl','n','d','u','q','s','vt','vd','vo','cn','cc','l','cf','fu')
-corto = [{k: r[k] for k in campos if k in r} for r in d]
+# nombre corto en el sitio -> nombre largo en servicios.json
+campos = [('id','id'), ('sl','slug'), ('n','nombre'), ('d','direccion_id'),
+          ('u','unidad'), ('q','que_entrega'), ('s','quien_solicita'),
+          ('vt','via_tipo'), ('vd','via_destino'), ('vo','via_texto_original'),
+          ('cn','contacto_nombre'), ('cc','contacto_correo'), ('l','lineamiento'),
+          ('cf','confianza'), ('fu','fuente_url')]
+corto = [{c: r.get(l) for c, l in campos} for r in d]
 pathlib.Path('data/servicios.js').write_text(
     'window.SERVICIOS=' + json.dumps(corto, ensure_ascii=False, separators=(',',':')) + ';',
     encoding='utf-8')
 PY
 ```
 
-El script de migración guarda además `ids_siis.json`, que conserva los identificadores y los slugs entre corridas. **No lo borres ni lo edites**: un id que cambia es una URL de ficha que se rompe.
+El script de migración guarda además `ids_siis.json`, que conserva los identificadores y los slugs entre corridas. **No lo borres ni lo edites**: un id que cambia es una URL de ficha que se rompe. El script lo busca en la carpeta de salida, así que antes de migrar copia el de la raíz del repositorio: `mkdir -p migracion && cp ids_siis.json migracion/`. Después de migrar, copia de vuelta `migracion/ids_siis.json` a la raíz y súbelo junto con los datos.
 
 ## Enrutado
 
